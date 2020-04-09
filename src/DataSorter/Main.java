@@ -40,46 +40,33 @@ public class Main {
 
     }
 
+
     static String[] getParams(String[] args) {
         String[] res = {"word", "natural", "nofile", "nofile"}; // default
 
         for (int i = 0; i < args.length; i++) {
-            switch (args[i].toLowerCase()) { // suggest, it's a command?
+            if (i + 1 >= args.length || isCommand(args[i + 1])) {
+                if (isCommand(args[i])) {
+                    System.out.println(args[i] + " is not defined!");
+                    System.exit(0);
+                }
+            }
+            switch (args[i].toLowerCase()) {
                 case "-sortingtype":
-                    if (i + 1 >= args.length || isCommand(args[i + 1])) {
-                        System.out.println("No sorting type defined!");
-                        System.exit(0);
-                    } else {
-                        if (SORTTEMPLATE.contains(args[++i])) {
-                            res[1] = args[i];
-                        }
+                    if (SORTTEMPLATE.contains(args[++i])) {
+                        res[1] = args[i];
                     }
                     break;
                 case "-datatype":
-                    if (i + 1 >= args.length || isCommand(args[i + 1])) {
-                        System.out.println("No data type defined!");
-                        System.exit(0);
-                    } else {
-                        if (DATATEMPLATE.contains(args[++i])) {
-                            res[0] = args[i];
-                        }
+                    if (DATATEMPLATE.contains(args[++i])) {
+                        res[0] = args[i];
                     }
                     break;
                 case "-inputfile":
-                    if (i + 1 >= args.length || isCommand(args[i + 1])) {
-                        System.out.println("No input file defined!");
-                        System.exit(0);
-                    } else {
-                        res[2] = args[++i];
-                    }
+                    res[2] = args[++i];
                     break;
                 case "-outputfile":
-                    if (i + 1 >= args.length || isCommand(args[i + 1])) {
-                        System.out.println("No output file defined!");
-                        System.exit(0);
-                    } else {
-                        res[3] = args[++i];
-                    }
+                    res[3] = args[++i];
                     break;
                 default:
                     System.out.println("\"" + args[i] +
